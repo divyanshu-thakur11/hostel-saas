@@ -36,6 +36,7 @@ export default function Login({ onLogin }) {
   const accentBg = isSuperAdmin ? 'rgba(231,76,60,0.08)' : isOwner ? 'rgba(240,165,0,0.08)' : 'rgba(52,152,219,0.08)';
 
   return (
+    <>
     <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
       <div style={{ width: '100%', maxWidth: 420 }}>
 
@@ -202,5 +203,6 @@ export default function Login({ onLogin }) {
         🏠 Resident? &nbsp;<strong style={{ color: 'var(--accent)' }}>Open Member Portal →</strong>
       </a>
     </div>
+    </>
   );
 }
