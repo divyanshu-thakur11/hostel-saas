@@ -252,3 +252,46 @@ exports.restore = async (req, res, next) => {
     res.json({ message: 'Member restored', member: restored });
   } catch(err) { next(err); }
 };
+// Compatibility aliases required by routes
+exports.restoreArchived = exports.restore;
+
+// Missing route handlers
+exports.deleteArchived = async (req, res, next) => {
+  try {
+    const archived = await ArchivedMember.findOneAndDelete({
+      _id: req.params.id,
+      organizationId: req.organizationId
+    });
+
+    if (!archived) {
+      return res.status(404).json({ message: 'Archived member not found' });
+    }
+
+    res.json({ message: 'Archived member deleted permanently' });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.vacate = async (req, res, next) => {
+  try {
+    const member = await Member.findOne({
+      _id: req.params.id,
+      organizationId: req.organizationId
+    });
+
+    if (!member) {
+      return res.status(404).json({ message: 'Member not found' });
+    }
+
+    member.roomNumber = null;
+    await member.save();
+
+    res.json({
+      message: 'Member vacated successfully',
+      member
+    });
+  } catch (err) {
+    next(err);
+  }
+};
