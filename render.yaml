@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: hostel-saas-platform
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: npm install --prefix server && npm install --prefix client && npm run build --prefix client
+    startCommand: node server/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CI
+        value: false
+      - key: PORT
+        value: 10000
+      # Required — set these in Render dashboard, NOT here
+      # - key: MONGODB_URI       (Atlas connection string)
+      # - key: JWT_SECRET        (64-char random string)
+      # - key: SUPERADMIN_USERNAME
+      # - key: SUPERADMIN_PASSWORD
+      # - key: RESET_SECRET
+      # - key: APP_URL           (your Render URL, e.g. https://hostel-saas.onrender.com)
